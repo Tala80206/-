@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upcycle Wheel</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f3f4f6;
+        }
+        .wheel-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+        }
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 5px solid #333;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            transform-origin: center;
+        }
+        .sector {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            background-color: lightblue;
+            border: 1px solid white;
+            transform-origin: 100% 100%;
+            text-align: center;
+            font-size: 12px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 5px;
+        }
+        .pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 30px solid red;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body>
+    <h1 class="text-2xl font-bold mb-4">🎡 Upcycle Challenge 🎡</h1>
+    <div class="wheel-container">
+        <div class="pointer"></div>
+        <div class="wheel" id="wheel"></div>
+    </div>
+    <button id="spin" class="mt-6 px-4 py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-700">Обертати</button>
+    <p id="result" class="mt-4 text-lg font-semibold"></p>
+
+    <script>
+        const materials = [
+            "Стара футболка", "Скляні пляшки", "Пластикові кришки", "Газети та журнали", "Старі джинси",
+            "Зношені книги", "Вінілові платівки", "Дерев'яні піддони", "Зламані меблі", "Компакт-диски"
+        ];
+
+        const tasks = [
+            "Створити сумку", "Розробити світильник", "Зробити картину або панно", "Спроєктувати аксесуар", "Перетворити на декор для дому",
+            "Створити предмет меблів", "Розробити функціональний предмет", "Створити арт-об'єкт", "Переробити у побутову річ", "Зробити настінне оздоблення"
+        ];
+
+        const wheel = document.getElementById("wheel");
+        const spinButton = document.getElementById("spin");
+        const resultText = document.getElementById("result");
+
+        function createWheel() {
+            const numSections = materials.length;
+            const angle = 360 / numSections;
+
+            materials.forEach((material, index) => {
+                const sector = document.createElement("div");
+                sector.classList.add("sector");
+                sector.style.backgroundColor = index % 2 === 0 ? "#34d399" : "#fbbf24";
+                sector.style.transform = `rotate(${index * angle}deg) skewY(-30deg)`;
+                sector.textContent = material;
+                wheel.appendChild(sector);
+            });
+        }
+
+        function spinWheel() {
+            const spins = Math.floor(Math.random() * 10) + 5;
+            const randomAngle = Math.floor(Math.random() * 360);
+            const totalRotation = spins * 360 + randomAngle;
+
+            gsap.to(wheel, {
+                duration: 3,
+                rotation: totalRotation,
+                ease: "power4.out",
+                onComplete: () => {
+                    const winningIndex = Math.floor(((360 - (totalRotation % 360)) / (360 / materials.length))) % materials.length;
+                    const randomTask = tasks[Math.floor(Math.random() * tasks.length)];
+                    resultText.textContent = `Матеріал: ${materials[winningIndex]} → Завдання: ${randomTask}!`;
+                }
+            });
+        }
+
+        spinButton.addEventListener("click", spinWheel);
+        createWheel();
+    </script>
+</body>
+</html>
