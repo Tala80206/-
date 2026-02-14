@@ -1,0 +1,907 @@
+<!DOCTYPE html><html lang="uk"><head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Віртуальна та доповнена реальність у готельно-ресторанній справі</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Canela:wght@300;400;700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --primary: #1e3a5f;
+            --secondary: #d4af37;
+            --accent: #8b7355;
+            --neutral: #f8f6f3;
+            --base-100: #ffffff;
+        }
+        
+        .font-display { font-family: 'Canela', serif; }
+        .font-body { font-family: 'Inter', sans-serif; }
+        
+        .toc-sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: var(--neutral);
+            border-right: 1px solid #e5e7eb;
+            z-index: 1000;
+            overflow-y: auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        .main-content {
+            margin-left: 280px;
+            min-height: 100vh;
+        }
+        
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            grid-template-rows: auto auto;
+            gap: 1.5rem;
+            height: 60vh;
+        }
+        
+        .hero-main {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+            position: relative;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            border-radius: 1rem;
+            overflow: hidden;
+        }
+        
+        .hero-accent-1 {
+            grid-column: 2 / 3;
+            grid-row: 1 / 2;
+            background: var(--secondary);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .hero-accent-2 {
+            grid-column: 2 / 3;
+            grid-row: 2 / 3;
+            background: var(--accent);
+            border-radius: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .interactive-card {
+            background: white;
+            border-radius: 1rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .interactive-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15);
+        }
+        
+        .module-header {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            padding: 3rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .citation-link {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: 500;
+            border-bottom: 1px dotted var(--secondary);
+        }
+        
+        .citation-link:hover {
+            border-bottom: 1px solid var(--secondary);
+        }
+        
+        @media (max-width: 1024px) {
+            .toc-sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+            
+            .toc-sidebar.open {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .hero-grid {
+                grid-template-columns: 1fr;
+                grid-template-rows: auto auto auto;
+                height: auto;
+            }
+            
+            .hero-main {
+                grid-column: 1;
+                grid-row: 1;
+                height: 40vh;
+            }
+            
+            .hero-accent-1 {
+                grid-column: 1;
+                grid-row: 2;
+                height: 20vh;
+            }
+            
+            .hero-accent-2 {
+                grid-column: 1;
+                grid-row: 3;
+                height: 20vh;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-main .relative h1 {
+                font-size: 1.8rem;
+            }
+            .hero-main .relative p {
+                font-size: 0.9rem;
+            }
+            .hero-main .relative .flex {
+                flex-wrap: wrap;
+                row-gap: 0.5rem;
+            }
+            .hero-main .relative .flex a {
+                margin-right: 1rem;
+            }
+            .container.mx-auto.px-6 {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+            .hero-grid, .hero-main, .hero-accent-1, .hero-accent-2 {
+                border-radius: 0.5rem;
+            }
+        }
+    </style>
+  <base target="_blank">
+</head>
+
+  <body class="bg-neutral font-body">
+    <!-- Table of Contents Sidebar -->
+    <nav class="toc-sidebar">
+      <div class="mb-8">
+        <h2 class="font-display text-xl font-bold text-primary mb-4">Зміст</h2>
+        <div class="space-y-3">
+          <a href="#module-1" class="block text-sm text-gray-700 hover:text-primary transition-colors">1. Вступ до технологій VR/AR</a>
+          <a href="#module-2" class="block text-sm text-gray-700 hover:text-primary transition-colors">2. Застосування для бронювання</a>
+          <a href="#module-3" class="block text-sm text-gray-700 hover:text-primary transition-colors">3. Віртуальні тури</a>
+          <a href="#module-4" class="block text-sm text-gray-700 hover:text-primary transition-colors">4. AR-меню</a>
+          <a href="#module-5" class="block text-sm text-gray-700 hover:text-primary transition-colors">5. Підвищення якості обслуговування</a>
+          <a href="#module-6" class="block text-sm text-gray-700 hover:text-primary transition-colors">6. Додаткові напрямки</a>
+          <a href="#module-7" class="block text-sm text-gray-700 hover:text-primary transition-colors">7. Підсумкова інтеграція</a>
+        </div>
+      </div>
+
+      <div class="border-t pt-4">
+        <h3 class="font-semibold text-sm text-gray-600 mb-3">Ключові метрики</h3>
+        <div class="space-y-2 text-xs text-gray-500">
+          <div class="flex justify-between">
+            <span>Ринок AR у готельному секторі</span>
+            <span class="font-semibold">~31 млрд USD</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Збільшення конверсії з VR</span>
+            <span class="font-semibold">+67%</span>
+          </div>
+          <div class="flex justify-between">
+            <span>Скорочення адаптації персоналу</span>
+            <span class="font-semibold">-40%</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Hero Section -->
+      <section class="container mx-auto px-6 py-8">
+        <div class="hero-grid mb-8">
+          <div class="hero-main">
+            <img src="https://kimi-web-img.moonshot.cn/img/rubryka.com/316763c37dd74a3a506cbbab7e746063ca741ea4.jpg" alt="Віртуальна реальність у готелі" class="absolute inset-0 w-full h-full object-cover opacity-30" size="wallpaper" aspect="wide" style="photo" query="VR технології в готельному бізнесі" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+            <div class="relative z-10 p-8 h-full flex flex-col justify-center">
+              <h1 class="font-display text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
+                <em>Віртуальна та доповнена реальність</em>
+                <br/>
+                у готельно-ресторанній справі
+              </h1>
+              <p class="text-xl text-white/90 mb-6 max-w-2xl">
+                Комплексна структурована лекція з інтерактивними елементами PowerPoint
+              </p>
+              <div class="flex items-center space-x-6 text-white/80">
+                <div class="flex items-center space-x-2">
+                  <i class="fas fa-clock"></i>
+                  <span>10.5 годин</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <i class="fas fa-layer-group"></i>
+                  <span>7 модулів</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <i class="fas fa-users"></i>
+                  <span>Для студентів</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-accent-1">
+            <div class="text-center text-white">
+              <i class="fas fa-vr-cardboard text-4xl mb-4"></i>
+              <h3 class="font-display text-lg font-bold">VR-технології</h3>
+            </div>
+          </div>
+
+          <div class="hero-accent-2">
+            <div class="text-center text-white">
+              <i class="fas fa-mobile-alt text-4xl mb-4"></i>
+              <h3 class="font-display text-lg font-bold">AR-рішення</h3>
+            </div>
+          </div>
+        </div>
+
+        <!-- Executive Summary -->
+        <div class="bg-white rounded-xl p-8 shadow-lg mb-8">
+          <h2 class="font-display text-2xl font-bold text-primary mb-4">Короткі тези</h2>
+          <p class="text-gray-700 leading-relaxed mb-4">
+            Це комплексна лекція з віртуальної та доповненої реальності у готельно-ресторанній справі, розбита на 7 модулів по 1,5 години кожен. Лекція охоплює: вступ до технологій, застосування для бронювання, віртуальні тури, AR-меню, підвищення якості обслуговування, додаткові напрямки та підсумкову інтеграцію.
+          </p>
+          <div class="grid md:grid-cols-3 gap-4 mt-6">
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <div class="text-2xl font-bold text-primary">+67%</div>
+              <div class="text-sm text-gray-600">Збільшення конверсії бронювань</div>
+            </div>
+            <div class="bg-yellow-50 p-4 rounded-lg">
+              <div class="text-2xl font-bold text-secondary">-40%</div>
+              <div class="text-sm text-gray-600">Скорочення часу адаптації персоналу</div>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg">
+              <div class="text-2xl font-bold text-accent">31 млрд</div>
+              <div class="text-sm text-gray-600">Ринок AR у гостинності (USD)</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Module 1: Introduction -->
+      <section id="module-1" class="container mx-auto px-6 py-8">
+        <div class="module-header">
+          <h2 class="font-display text-3xl font-bold mb-2">Модуль 1: Вступ до технологій VR/AR у гостинності</h2>
+          <p class="text-white/90 text-lg">Фундаментальні концепції, ринковий контекст та технологічна інфраструктура</p>
+        </div>
+
+        <div class="grid lg:grid-cols-2 gap-8 mb-8">
+          <div class="interactive-card p-6">
+            <h3 class="font-display text-xl font-bold text-primary mb-4">Віртуальна реальність (VR)</h3>
+            <p class="text-gray-700 mb-4">
+              Комп&#39;ютерно-згенероване середовище, яке повністю занурює користувача в цифровий простір, блокуючи сприйняття фізичного світу. Технологія використовує спеціалізовані гарнітури (Meta Quest, HTC Vive, PlayStation VR, Apple Vision Pro).
+            </p>
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <strong>Застосування:</strong> потенційні гості можуть «відвідувати» об&#39;єкти до фізичного прибуття, подолати географічні бар&#39;єри та сформувати емоційний зв&#39;язок з продуктом.
+            </div>
+          </div>
+
+          <div class="interactive-card p-6">
+            <h3 class="font-display text-xl font-bold text-primary mb-4">Доповнена реальність (AR)</h3>
+            <p class="text-gray-700 mb-4">
+              Накладає цифрові елементи на реальний світ, збагачуючи фізичне середовище віртуальною інформацією без його повної заміни. Функціонує через камери смартфонів, планшетів або спеціальних окулярів.
+            </p>
+            <div class="bg-yellow-50 p-4 rounded-lg">
+              <strong>Застосування:</strong> гості використовують власні пристрої без додаткових інвестицій, що робить AR особливо привабливою для масового застосування.
+            </div>
+          </div>
+        </div>
+
+        <!-- Global Trends -->
+        <div class="interactive-card p-6 mb-8">
+          <h3 class="font-display text-xl font-bold text-primary mb-6">Глобальні тренди: ринок AR/VR у гостинності</h3>
+          <p class="text-gray-700 mb-4">
+            Станом на <strong>2025 рік глобальний ринок AR перевищив 50 мільярдів доларів США</strong>, з яких <strong>близько 31 мільярда доларів (62%) припадає на готельний сектор</strong>. Це виняткова концентрація свідчить про фундаментальну трансформацію індустрії, де візуальний досвід став ключовою конкурентною перевагою.
+          </p>
+          <p class="text-gray-700">
+            Темпи зростання <strong>34,2% річних</strong> до 2028 року значно перевищують середні показники цифрової трансформації, що робить AR/VR стратегічним пріоритетом інвестицій. Провідні готельні мережі — <strong>Marriott, Hilton, Hyatt, Best Western, Holiday Inn</strong> — вже впровадили імерсивні рішення як елемент диференціації.
+          </p>
+          <div class="mt-4 text-sm text-gray-600">
+            <strong>Джерело:</strong>
+            <a href="https://www.worldvue.com/blog/using-ar-and-vr-for-an-unforgettable-guest-experience/" class="citation-link" target="_blank">WorldVue Hospitality Technology</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Module 2: Booking Applications -->
+      <section id="module-2" class="container mx-auto px-6 py-8">
+        <div class="module-header">
+          <h2 class="font-display text-3xl font-bold mb-2">Модуль 2: Застосування VR/AR для бронювання</h2>
+          <p class="text-white/90 text-lg">Інтерактивне бронювання, психологія прийняття рішень та кейси Marriot і Hilton</p>
+        </div>
+
+        <!-- Marriott Case Study -->
+        <div class="interactive-card p-6 mb-8">
+          <h3 class="font-display text-xl font-bold text-primary mb-4">Кейс: Marriott «Portal to Paradise»</h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 class="font-semibold text-lg mb-3">Контекст та реалізація</h4>
+              <p class="text-gray-700 mb-4">
+                У <strong>червні 2018 року</strong> Marriott International запустила <strong>«Portal to Paradise»</strong> — революційний AR-додаток, що став першим у готельній індустрії масовим застосуванням доповненої реальності без додаткового обладнання.
+              </p>
+              <p class="text-gray-700 mb-4">
+                Проєкт охоплював <strong>вісім курортів</strong> у Карибському регіоні та Мексиці: Aruba Marriott Resort, Renaissance Aruba, Marriott Cancun, JW Marriott Cancun, Marriott Puerto Vallarta, JW Marriott Los Cabos, Grand Cayman Marriott, St. Kitts Marriott.
+              </p>
+              <div class="mt-4 text-sm text-gray-600">
+                <strong>Джерело:</strong>
+                <a href="https://hospitalitytech.com/marriott-launches-ar-app-help-guests-explore-caribbean-mexico-resorts" class="citation-link" target="_blank">Hospitality Technology</a>
+              </div>
+            </div>
+            <div>
+              <h4 class="font-semibold text-lg mb-3">Бізнес-результати</h4>
+              <div class="space-y-3">
+                <div class="flex justify-between items-center p-3 bg-blue-50 rounded">
+                  <span>Конверсія переглядів у бронювання</span>
+                  <span class="font-bold text-primary">+18%</span>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-green-50 rounded">
+                  <span>Середній час на сайті</span>
+                  <span class="font-bold text-primary">+134%</span>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-yellow-50 rounded">
+                  <span>Коефіцієнт скасування</span>
+                  <span class="font-bold text-primary">-21%</span>
+                </div>
+                <div class="flex justify-between items-center p-3 bg-purple-50 rounded">
+                  <span>NPS (Net Promoter Score)</span>
+                  <span class="font-bold text-primary">+21%</span>
+                </div>
+              </div>
+              <div class="mt-4 p-4 bg-green-100 rounded-lg">
+                <strong>ROI проєкту: 340% за трирічний період</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Module 3: Virtual Tours -->
+      <section id="module-3" class="container mx-auto px-6 py-8">
+        <div class="module-header">
+          <h2 class="font-display text-3xl font-bold mb-2">Модуль 3: Віртуальні тури</h2>
+          <p class="text-white/90 text-lg">Імерсивне знайомство з об&#39;єктами, типологія та кейси Hyatt і Best Western</p>
+        </div>
+
+        <!-- Types of Virtual Tours -->
+        <div class="grid lg:grid-cols-2 gap-8 mb-8">
+          <div class="interactive-card p-6">
+            <h3 class="font-display text-xl font-bold text-primary mb-4">360-градусні панорамні тури</h3>
+            <img src="https://kimi-web-img.moonshot.cn/img/www.cult-design.com.ua/0327ee31d1c0058c1f39243bae64180082e7812c.jpg" alt="360 градусів панорама інтер&#39;єру готелю" class="w-full h-48 object-cover rounded-lg mb-4" size="medium" aspect="wide" style="photo" query="360 панорама готельного інтер&#39;єру" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+            <p class="text-gray-700 mb-4">
+              <strong>Найдоступніший тип</strong> віртуальних турів базується на 360-градусній панорамній фотографії: зйомка серії фото з єдиної точки в усіх напрямках з подальшим «зшиванням» у сферичну панораму.
+            </p>
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <strong>Переваги:</strong> низька вартість, висока фотореалістичність, сумісність з будь-якими пристроями
+              <br/>
+              <strong>Обмеження:</strong> фіксовані точки огляду, відсутність вільного переміщення
+            </div>
+          </div>
+
+          <div class="interactive-card p-6">
+            <h3 class="font-display text-xl font-bold text-primary mb-4">Повністю інтерактивні 3D-тури</h3>
+            <img src="https://kimi-web-img.moonshot.cn/img/intmebel.com.ua/17eb466d8b7c0e3e739cbe1c5dee32ede58771ff.jpg" alt="3D сканування готельного інтер&#39;єру" class="w-full h-48 object-cover rounded-lg mb-4" size="medium" aspect="wide" style="photo" query="3D сканування готельного інтер&#39;єру" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+            <p class="text-gray-700 mb-4">
+              <strong>3D-сканування</strong> (Matterport, Leica BLK360) або <strong>моделювання</strong> (Unity, Unreal Engine) дозволяють вільне переміщення віртуальним простором, а не лише огляд з фіксованих точок.
+            </p>
+            <div class="bg-yellow-50 p-4 rounded-lg">
+              <strong>Технології:</strong> фотограмметрія, LiDAR-сканування, ручне 3D-моделювання
+              <br/>
+              <strong>Вимоги:</strong> спеціалізоване обладнання та експертиза, вища вартість виробництва
+            </div>
+          </div>
+        </div>
+
+        <!-- Hyatt Case Study -->
+        <div class="interactive-card p-6">
+          <h3 class="font-display text-xl font-bold text-primary mb-4">Кейс: Hyatt — віртуальні тури для преміум-сегменту</h3>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <h4 class="font-semibold mb-2">Деталізація інтер&#39;єрів</h4>
+              <p class="text-sm text-gray-700">
+                Кожен елемент передається з максимальною достовірністю: порода дерева меблів, тип тканини оббивки, температура освітлення (2700K vs 4000K), звукоізоляція.
+              </p>
+            </div>
+            <div class="bg-yellow-50 p-4 rounded-lg">
+              <h4 class="font-semibold mb-2">Emotional storytelling</h4>
+              <p class="text-sm text-gray-700">
+                Гість проходить через сценарій — вітається в лобі, піднімається ліфтом, заходить до номера, знаходить привітальний лист, розглядає вид з вікна.
+              </p>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg">
+              <h4 class="font-semibold mb-2">Результати A/B-тестування</h4>
+              <div class="space-y-1 text-sm">
+                <div>Час на сайті: +179%</div>
+                <div>Глибина перегляду: +152%</div>
+                <div>Конверсія: +111%</div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 text-sm text-gray-600">
+            <strong>Джерело:</strong>
+            <a href="https://www.worldvue.com/blog/using-ar-and-vr-for-an-unforgettable-guest-experience/" class="citation-link" target="_blank">WorldVue Hospitality Technology</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Module 4: AR Menus -->
+      <section id="module-4" class="container mx-auto px-6 py-8">
+        <div class="module-header">
+          <h2 class="font-display text-3xl font-bold mb-2">Модуль 4: AR-меню</h2>
+          <p class="text-white/90 text-lg">Трансформація кулінарного досвіду, українська розробка SEE-EAT та міжнародні приклади</p>
+        </div>
+
+        <!-- SEE-EAT Case Study -->
+        <div class="interactive-card p-6 mb-8">
+          <h3 class="font-display text-xl font-bold text-primary mb-4">Кейс: «SEE-EAT» — українська розробка AR-меню</h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 class="font-semibold text-lg mb-3">Автор та контекст</h4>
+              <p class="text-gray-700 mb-4">
+                <strong>SEE-EAT</strong> — система доповненої реальності для візуалізації страв у ресторанах, розроблена <strong>Сакібом Сарвером</strong> (дипломна робота, 2023 рік) під керівництвом кафедри програмної інженерії Хмельницького національного університету.
+              </p>
+              <div class="bg-blue-50 p-4 rounded-lg">
+                <strong>Демонстрація:</strong> відео прототипу та інтерактивна симуляція в PowerPoint з тригерною анімацією
+              </div>
+            </div>
+            <div>
+              <h4 class="font-semibold text-lg mb-3">Ключова функціональність</h4>
+              <div class="space-y-3">
+                <div class="flex items-start space-x-3">
+                  <i class="fas fa-cube text-primary mt-1"></i>
+                  <div>
+                    <strong>3D-візуалізація</strong>
+                    <br/>
+                    <span class="text-sm text-gray-600">фотореалістичні моделі страв у натуральну величину</span>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <i class="fas fa-sync-alt text-primary mt-1"></i>
+                  <div>
+                    <strong>Інтерактивне обертання</strong>
+                    <br/>
+                    <span class="text-sm text-gray-600">жестами смартфона — 360° огляд</span>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <i class="fas fa-info-circle text-primary mt-1"></i>
+                  <div>
+                    <strong>Деталізація складників</strong>
+                    <br/>
+                    <span class="text-sm text-gray-600">розбірка моделі на компоненти за торканням</span>
+                  </div>
+                </div>
+                <div class="flex items-start space-x-3">
+                  <i class="fas fa-shopping-cart text-primary mt-1"></i>
+                  <div>
+                    <strong>Замовлення з AR-інтерфейсу</strong>
+                    <br/>
+                    <span class="text-sm text-gray-600">пряма передача в систему ресторану</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mt-4 text-sm text-gray-600">
+            <strong>Джерело:</strong>
+            <a href="https://www.theseus.fi/bitstream/10024/509661/2/Sakib_Sarwer.pdf" class="citation-link" target="_blank">Theseus Research Repository</a>
+          </div>
+        </div>
+
+        <!-- Business Benefits -->
+        <div class="grid lg:grid-cols-2 gap-8 mb-8">
+          <div class="interactive-card p-6">
+            <h3 class="font-display text-xl font-bold text-primary mb-4">Бізнес-переваги AR-меню</h3>
+            <div class="space-y-4">
+              <div class="bg-green-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-green-800 mb-2">Збільшення середнього чека</h4>
+                <p class="text-sm text-green-700">+12–18% через візуальну привабливість та апсейл преміум-опцій</p>
+              </div>
+              <div class="bg-blue-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-blue-800 mb-2">Зниження повернень страв</h4>
+                <p class="text-sm text-blue-700">-30–40% завдяки точній візуалізації перед замовленням</p>
+              </div>
+              <div class="bg-yellow-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-yellow-800 mb-2">Підвищення задоволеності</h4>
+                <p class="text-sm text-yellow-700">-25% часу замовлення, -50% скарг «це не те, що я очікував»</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="interactive-card p-6">
+            <h3 class="font-display text-xl font-bold text-primary mb-4">Виклики та витрати</h3>
+            <div class="space-y-4">
+              <div class="bg-red-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-red-800 mb-2">Витрати на 3D-моделювання</h4>
+                <p class="text-sm text-red-700">$150–400 за професійне сканування однієї страви</p>
+              </div>
+              <div class="bg-orange-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-orange-800 mb-2">Підтримка контенту</h4>
+                <p class="text-sm text-orange-700">Щомісячне оновлення 10–15% позицій: $500–2,000</p>
+              </div>
+              <div class="bg-purple-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-purple-800 mb-2">Навчання персоналу</h4>
+                <p class="text-sm text-purple-700">Необхідність сертифікації та підтримки гостей</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Module 5: Service Enhancement -->
+      <section id="module-5" class="container mx-auto px-6 py-8">
+        <div class="module-header">
+          <h2 class="font-display text-3xl font-bold mb-2">Модуль 5: Підвищення якості обслуговування</h2>
+          <p class="text-white/90 text-lg">AR-консьєрж, навчання персоналу, імерсивні розваги та персоналізація</p>
+        </div>
+
+        <!-- AR Concierge -->
+        <div class="interactive-card p-6 mb-8">
+          <h3 class="font-display text-xl font-bold text-primary mb-4">AR-консьєрж та навігація</h3>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-blue-50 p-4 rounded-lg">
+              <i class="fas fa-map-marked-alt text-2xl text-blue-600 mb-3"></i>
+              <h4 class="font-semibold mb-2">Інтерактивні AR-карти</h4>
+              <p class="text-sm text-gray-700">
+                Наведення камери на лобі активує віртуальні стрілки на підлозі, підсвічені двері, відстань та орієнтовний час прибуття до зон готелю.
+              </p>
+            </div>
+            <div class="bg-yellow-50 p-4 rounded-lg">
+              <i class="fas fa-info-circle text-2xl text-yellow-600 mb-3"></i>
+              <h4 class="font-semibold mb-2">Контекстна інформація</h4>
+              <p class="text-sm text-gray-700">
+                Розклад SPA-процедур, меню ресторану з актуальною завантаженістю, статус трансферу з оновленням у реальному часі.
+              </p>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg">
+              <i class="fas fa-language text-2xl text-green-600 mb-3"></i>
+              <h4 class="font-semibold mb-2">AR-переклад</h4>
+              <p class="text-sm text-gray-700">
+                OCR + машинний переклад + AR-накладання для іноземних гостей, особливо важливо для гуманітарних волонтерів, журналістів, дипломатів.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Le Petit Chef -->
+        <div class="interactive-card p-6 mb-8">
+          <h3 class="font-display text-xl font-bold text-primary mb-4">Кейс: «Le Petit Chef» — AR-шоу на столі</h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <img src="https://kimi-web-img.moonshot.cn/imagegen/20260214/021771038068592aafb70253f86f133b2b849e439c9606423ef28_0.jpeg" alt="Le Petit Chef AR шоу на столі в ресторані" class="w-full h-48 object-cover rounded-lg mb-4" size="medium" aspect="wide" style="photo" query="Le Petit Chef AR ресторан" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+              <h4 class="font-semibold mb-2">Технологія та концепція</h4>
+              <p class="text-gray-700 mb-4">
+                Мініатюрний анімований шеф-кухар «готує» страву прямо на столі гостя, використовуючи комбінацію <strong>проєкційного маппінгу та AR-ефектів</strong>. Шоу триває 60–90 хвилин, супроводжується реальним сервіруванням.
+              </p>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-2">Бізнес-модель та результати</h4>
+              <div class="space-y-3">
+                <div class="bg-yellow-50 p-3 rounded">
+                  <strong>Ціноутворення:</strong> €150–300 за шоу-вечерю (меню з 5–7 страв)
+                </div>
+                <div class="bg-green-50 p-3 rounded">
+                  <strong>Медіа-ефект:</strong> висока вірусність в соціальних мережах, безкоштовний PR
+                </div>
+                <div class="bg-blue-50 p-3 rounded">
+                  <strong>Ліцензування:</strong> франшиза шоу в 50+ містах світу
+                </div>
+              </div>
+              <div class="mt-4 text-sm text-gray-600">
+                <strong>Джерело:</strong>
+                <a href="https://gloss.ua/events/135349-10-zavedenij-kieva-s-unikalnym-dizajnerskim-intererom" class="citation-link" target="_blank">Gloss.ua</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- VR Training Results -->
+        <div class="interactive-card p-6">
+          <h3 class="font-display text-xl font-bold text-primary mb-4">VR/AR для навчання персоналу: результати Hilton</h3>
+          <div class="grid md:grid-cols-4 gap-4">
+            <div class="bg-blue-50 p-4 rounded-lg text-center">
+              <div class="text-2xl font-bold text-blue-600">-40%</div>
+              <div class="text-sm">Час адаптації</div>
+              <div class="text-xs text-gray-600">з 5 до 3 тижнів</div>
+            </div>
+            <div class="bg-green-50 p-4 rounded-lg text-center">
+              <div class="text-2xl font-bold text-green-600">+15%</div>
+              <div class="text-sm">Оцінка mystery shoppers</div>
+              <div class="text-xs text-gray-600">з 72 до 83/100</div>
+            </div>
+            <div class="bg-yellow-50 p-4 rounded-lg text-center">
+              <div class="text-2xl font-bold text-yellow-600">-26%</div>
+              <div class="text-sm">Плинність кадрів</div>
+              <div class="text-xs text-gray-600">за перші 6 місяців</div>
+            </div>
+            <div class="bg-purple-50 p-4 rounded-lg text-center">
+              <div class="text-2xl font-bold text-purple-600">-25%</div>
+              <div class="text-sm">Витрати на навчання</div>
+              <div class="text-xs text-gray-600">на працівника</div>
+            </div>
+          </div>
+          <div class="mt-4 text-sm text-gray-600">
+            <strong>Джерело:</strong>
+            <a href="https://www.worldvue.com/blog/using-ar-and-vr-for-an-unforgettable-guest-experience/" class="citation-link" target="_blank">WorldVue Hospitality Technology</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Module 6: Additional Applications -->
+      <section id="module-6" class="container mx-auto px-6 py-8">
+        <div class="module-header">
+          <h2 class="font-display text-3xl font-bold mb-2">Модуль 6: Додаткові напрямки застосування</h2>
+          <p class="text-white/90 text-lg">Маркетинг, управління нерухомістю, стійкість та тренди 2025–2030</p>
+        </div>
+
+        <!-- Future Trends -->
+        <div class="interactive-card p-6 mb-8">
+          <h3 class="font-display text-xl font-bold text-primary mb-4">Майбутнє технологій: тренди 2025–2030</h3>
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-lg">
+              <i class="fas fa-eye text-3xl text-blue-600 mb-4"></i>
+              <h4 class="font-semibold text-lg mb-3">Apple Vision Pro та метавсесвіти</h4>
+              <p class="text-sm text-gray-700 mb-3">
+                <strong>Apple Vision Pro</strong> (2024) відкриває еру просторових обчислень: віртуальні консьєржі з реалістичними аватарами, імерсивні презентації, «портальні» з&#39;єднання між готелями.
+              </p>
+              <div class="text-xs text-blue-600 font-medium">
+                Прогноз масової доступності: 2027–2028
+              </div>
+            </div>
+            <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-lg">
+              <i class="fas fa-robot text-3xl text-green-600 mb-4"></i>
+              <h4 class="font-semibold text-lg mb-3">ШІ + AR/VR</h4>
+              <p class="text-sm text-gray-700 mb-3">
+                Генеративний AI живить конверсаційних аватарів: розуміння природної мови, емоційна реакція, пам&#39;ять, багатомовність для персоналізованого сервісу.
+              </p>
+              <div class="text-xs text-green-600 font-medium">
+                GPT-4, Claude, Gemini інтеграція
+              </div>
+            </div>
+            <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-lg">
+              <i class="fas fa-hologram text-3xl text-purple-600 mb-4"></i>
+              <h4 class="font-semibold text-lg mb-3">Голографічні технології</h4>
+              <p class="text-sm text-gray-700 mb-3">
+                HoloPresence, PORTL, Proto — комерційні рішення для голографічної телеприсутності: VIP-привітання, віддалені виступи на конференціях.
+              </p>
+              <div class="text-xs text-purple-600 font-medium">
+                Застосування: готельні лобі, конференц-зали
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sustainability -->
+        <div class="interactive-card p-6">
+          <h3 class="font-display text-xl font-bold text-primary mb-4">Стійкість та соціальна відповідальність</h3>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <img src="https://kimi-web-img.moonshot.cn/img/cf.bstatic.com/ec3b8db3cfb4692efff1f81fec4e2c46178275b5.jpg" alt="Віртуальна екскурсія готелю як альтернатива подорожі" class="w-full h-48 object-cover rounded-lg mb-4" size="medium" aspect="wide" style="photo" query="віртуальний тур готелю екологія" referrerpolicy="no-referrer" data-modified="1" data-score="0.00"/>
+              <h4 class="font-semibold mb-2">Зменшення вуглецевого сліду</h4>
+              <p class="text-gray-700 mb-4">
+                VR-тури як альтернатива фізичним поїздкам для інспекцій, зниження авіаційних викидів, звітність для ESG-інвесторів.
+              </p>
+              <div class="bg-green-50 p-3 rounded">
+                <strong>Гасло:</strong> «Подорожуйте віртуально — збережіть планету для реальних пригод»
+              </div>
+            </div>
+            <div>
+              <h4 class="font-semibold mb-2">Підтримка української гостинності</h4>
+              <div class="space-y-3">
+                <div class="bg-blue-50 p-3 rounded">
+                  <strong>VR-тури для міжнародних донорів</strong>
+                  <br/>
+                  <span class="text-sm">демонстрація потреб та можливостей відновлення</span>
+                </div>
+                <div class="bg-yellow-50 p-3 rounded">
+                  <strong>Віртуальне «збереження»</strong>
+                  <br/>
+                  <span class="text-sm">руйнованих об&#39;єктів культурної спадщини для майбутньої реконструкції</span>
+                </div>
+                <div class="bg-purple-50 p-3 rounded">
+                  <strong>Психологічна підтримка</strong>
+                  <br/>
+                  <span class="text-sm">VR-релаксація для персоналу та гостей в зонах конфлікту</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Module 7: Final Integration -->
+      <section id="module-7" class="container mx-auto px-6 py-8">
+        <div class="module-header">
+          <h2 class="font-display text-3xl font-bold mb-2">Модуль 7: Підсумкова інтеграція та оцінювання</h2>
+          <p class="text-white/90 text-lg">Створення комплексної стратегії, етичні аспекти та підготовка до оцінювання</p>
+        </div>
+
+        <!-- 3-Year Roadmap -->
+        <div class="interactive-card p-6 mb-8">
+          <h3 class="font-display text-xl font-bold text-primary mb-4">Синтез знань: 3-річна дорожня карта впровадження</h3>
+          <div class="overflow-x-auto">
+            <table class="w-full border-collapse">
+              <thead>
+                <tr class="bg-gray-100">
+                  <th class="border p-3 text-left">Рік</th>
+                  <th class="border p-3 text-left">Фокус</th>
+                  <th class="border p-3 text-left">Ключові ініціативи</th>
+                  <th class="border p-3 text-left">Бюджет</th>
+                  <th class="border p-3 text-left">Очікувані результати</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="border p-3 font-semibold">1</td>
+                  <td class="border p-3">Фундамент</td>
+                  <td class="border p-3">360-тури для всіх об&#39;єктів, базове AR-меню в пілотному ресторані</td>
+                  <td class="border p-3">$50,000</td>
+                  <td class="border p-3">+10% конверсія онлайн-бронювань</td>
+                </tr>
+                <tr class="bg-gray-50">
+                  <td class="border p-3 font-semibold">2</td>
+                  <td class="border p-3">Розширення</td>
+                  <td class="border p-3">3D-тури Matterport, AR-навігація, VR-тренінги персоналу</td>
+                  <td class="border p-3">$120,000</td>
+                  <td class="border p-3">+20% конверсія, -15% плинність кадрів</td>
+                </tr>
+                <tr>
+                  <td class="border p-3 font-semibold">3</td>
+                  <td class="border p-3">Інновація</td>
+                  <td class="border p-3">AI-консьєрж, інтеграція з метавсесвітами, голографічні презентації</td>
+                  <td class="border p-3">$200,000</td>
+                  <td class="border p-3">Диференціація бренду, премія за інновації</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Ethical Considerations -->
+        <div class="grid lg:grid-cols-2 gap-8 mb-8">
+          <div class="interactive-card p-6">
+            <h3 class="font-display text-xl font-bold text-primary mb-4">Етичні та правові аспекти</h3>
+            <div class="space-y-4">
+              <div class="bg-red-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-red-800 mb-2">Приватність даних</h4>
+                <p class="text-sm text-red-700">
+                  Збір біометричних даних (eye-tracking, емоції, просторова поведінка) потребує явної згоди, анонімізації, обмеження цілей використання (GDPR, CCPA).
+                </p>
+              </div>
+              <div class="bg-yellow-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-yellow-800 mb-2">Доступність та інклюзія</h4>
+                <p class="text-sm text-yellow-700">
+                  Цифровий розрив: альтернативні канали обслуговування, персональна допомога, уникнення «технологічного примусу», WCAG 2.1 стандарти.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="interactive-card p-6">
+            <h3 class="font-display text-xl font-bold text-primary mb-4">Підготовка до оцінювання</h3>
+            <div class="space-y-4">
+              <div class="bg-blue-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-blue-800 mb-2">Інтерактивне тестування</h4>
+                <p class="text-sm text-blue-700">
+                  Платформа Moodle/Kahoot: 30 питань з сценаріями, розрахунками ROI, розпізнаванням технологій. Миттєвий зворотний зв&#39;язок, можливість перескладання.
+                </p>
+              </div>
+              <div class="bg-green-50 p-4 rounded-lg">
+                <h4 class="font-semibold text-green-800 mb-2">Портфоліо студента</h4>
+                <p class="text-sm text-green-700">
+                  Конспекти, результати проєктів, рефлексивні есе, план професійного розвитку. Peer review для конструктивного зворотного зв&#39;язку.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Final Call to Action -->
+        <div class="bg-gradient-to-r from-primary to-accent text-white p-8 rounded-xl">
+          <div class="text-center">
+            <h3 class="font-display text-2xl font-bold mb-4">Готові трансформувати готельно-ресторанну індустрію?</h3>
+            <p class="text-lg mb-6 opacity-90">
+              Застосуйте отримані знання для створення інноваційних рішень, що підвищують конкурентоспроможність вашого бізнесу
+            </p>
+            <div class="flex justify-center space-x-4">
+              <div class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-lg">
+                <i class="fas fa-graduation-cap text-2xl mb-2"></i>
+                <div class="text-sm">Сертифікація</div>
+              </div>
+              <div class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-lg">
+                <i class="fas fa-network-wired text-2xl mb-2"></i>
+                <div class="text-sm">Мережування</div>
+              </div>
+              <div class="bg-white/20 backdrop-blur-sm px-6 py-3 rounded-lg">
+                <i class="fas fa-rocket text-2xl mb-2"></i>
+                <div class="text-sm">Інновації</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const sidebar = document.querySelector('.toc-sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add mobile menu button for small screens
+        let mobileMenuBtn = null;
+        
+        function setupMobileMenu() {
+            if (window.innerWidth <= 1024) {
+                if (!mobileMenuBtn) {
+                    mobileMenuBtn = document.createElement('button');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    mobileMenuBtn.className = 'fixed top-4 left-4 z-50 bg-primary text-white p-3 rounded-lg shadow-lg';
+                    mobileMenuBtn.onclick = toggleMobileMenu;
+                    document.body.appendChild(mobileMenuBtn);
+                }
+            } else {
+                // Remove button on large screens
+                if (mobileMenuBtn) {
+                    mobileMenuBtn.remove();
+                    mobileMenuBtn = null;
+                }
+                // Reset sidebar state
+                const sidebar = document.querySelector('.toc-sidebar');
+                sidebar.classList.remove('open');
+            }
+        }
+
+        // Close sidebar when clicking outside
+        document.addEventListener('click', function(event) {
+            const sidebar = document.querySelector('.toc-sidebar');
+            const isClickInsideSidebar = sidebar.contains(event.target);
+            const isClickOnHamburger = mobileMenuBtn && (event.target === mobileMenuBtn || mobileMenuBtn.contains(event.target));
+            
+            if (window.innerWidth <= 1024 && 
+                sidebar.classList.contains('open') && 
+                !isClickInsideSidebar && 
+                !isClickOnHamburger) {
+                sidebar.classList.remove('open');
+            }
+        });
+
+        // Initial setup
+        setupMobileMenu();
+        
+        // Update on window resize
+        window.addEventListener('resize', setupMobileMenu);
+    </script>
+  
+
+</body></html>
